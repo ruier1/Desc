@@ -37,7 +37,7 @@ public class BillController2 {
 	 /**
 	  * ��ҳ
 	  * @param m
-	  * @param pageNow
+	  * @param pageNowssss
 	  * @return
 	 * @throws UnsupportedEncodingException 
 	  */
