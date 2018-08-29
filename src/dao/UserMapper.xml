@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.UserMapper">
+	<!-- 查询登陆账号 -->
+	<select id="QueryuserCode" resultType="User" parameterType="String">
+		SELECT *FROM smbms_user WHERE userCode=#{str}
+	</select>
+	<!-- 查询id -->
+	<select id="QueryId" resultType="User" parameterType="String">
+		SELECT
+		*FROM smbms_user WHERE id=#{str}
+	</select>
+
+	<!-- 验证登陆 -->
+	<select id="login" resultType="User" parameterType="User">
+		SELECT *FROM smbms_user WHERE userCode=#{userCode} and userPassword=#{userPassword}
+	</select>
+
+	<!-- 查询用户列表 -->
+	<select id="QueryAll" resultType="User" parameterType="User">
+		select
+		a.id,userCode,userName,gender,phone,roleName,(year(now())-year(birthday))
+		as age from smbms_user a INNER JOIN smbms_role b on a.userRole = b.id
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="userName!=null">and a.userName LIKE CONCAT ('%',#{userName},'%')</if>
+			<if test="userRole!=null and userRole!=0"> and a.userRole=#{userRole}</if>
+		</trim>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) as count from
+		smbms_user
+	</select>
+	<select id="queryByUserList" resultType="User" parameterType="User">
+		SELECT a.id,a.userCode,userName,gender,(YEAR(NOW())-YEAR(birthday)) as
+		age,
+		phone,roleName as roleName FROM smbms_user as a,smbms_role as b
+		WHERE a.userRole = b.id
+		LIMIT #{index},#{pageSize}
+	</select>
+
+	<select id="countFz" resultType="int">
+		select count(1) as count from
+		smbms_user
+		<where>
+			<if test="name != null and name != ''">
+				AND userName like CONCAT ('%',#{name},'%')
+			</if>
+			<if test="role != 0">
+				AND userRole = #{role}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryByName" resultType="User">
+		SELECT
+		a.id,a.userCode,userName,gender,(YEAR(NOW())-YEAR(birthday)) as
+		age,
+		phone,roleName as roleName FROM smbms_user as a,smbms_role as b
+		WHERE a.userRole = b.id
+		<if test="name != null and name != ''">
+			AND userName like CONCAT ('%',#{name},'%')
+		</if>
+		<if test="role != 0">
+			AND userRole = #{role}
+		</if>
+		LIMIT #{index},#{pageSize}
+	</select>
+	<!-- 插入数据 -->
+	<insert id="AddUser" parameterType="User">
+		insert into
+		smbms_user(userCode,userName,userPassword,gender,birthday,phone,address,userRole,createdBy,creationDate)
+		values(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},
+		#{phone},#{address},#{userRole},#{createdBy},#{creationDate})
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="ModifyUser" parameterType="User">
+		UPDATE smbms_user set
+		userName=#{userName},gender=#{gender},birthday=#{birthday},phone=#{phone},address=#{address},userRole=#{userRole},modifyBy=#{modifyBy},modifyDate=#{modifyDate}
+		WHERE id=#{id}
+	</update>
+
+	<!-- 删除数据 -->
+
+	<!-- 批量删除 -->
+
+	<delete id="DelUser">
+		delete from smbms_user where id in
+		<foreach collection="array" item="arr" open="(" separator=","
+			close=")">
+			#{arr}
+		</foreach>
+	</delete>
+</mapper>
