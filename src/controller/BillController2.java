@@ -30,12 +30,12 @@ import service.BiliService;
 @RequestMapping("/Bill")
 public class BillController2 {
 	/**
-	 * ÒýÓÃservice²ã
+	 * ï¿½ï¿½ï¿½ï¿½serviceï¿½ï¿½s
 	 */
 	 @Autowired
 	  private BiliService biliService;
 	 /**
-	  * ·ÖÒ³
+	  * ï¿½ï¿½Ò³
 	  * @param m
 	  * @param pageNow
 	  * @return
@@ -45,7 +45,7 @@ public class BillController2 {
 //	  public String getStuList(Model m,@RequestParam(value="pageNow",required=false) Integer pageNow){
 //	   LimitPageList limitPageStuList = biliService.getLimitPageList(pageNow);
 //	   Page page = limitPageStuList.getPage();
-//	    //Ç¿ÖÆÀàÐÍ×ª»»
+//	    //Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 //	   List<Bill> stuList = (List<Bill>) limitPageStuList.getList();
 //	     m.addAttribute("page", page);
 //	    m.addAttribute("stuList", stuList);
@@ -55,11 +55,11 @@ public class BillController2 {
 	 @RequestMapping(value="/qulists",produces="text/html;charset=utf-8")
 	  public String showMyProduct(HttpServletRequest request) throws UnsupportedEncodingException{
 		 	User loginUser = (User) request.getSession().getAttribute("userSession");
-//		 // ÅÐ¶ÏSESSIONÊÇ·ñÊ§Ð§  
+//		 // ï¿½Ð¶ï¿½SESSIONï¿½Ç·ï¿½Ê§Ð§  
 //	        if (loginUser == null || "".equals(loginUser)) {  
 //	            return "redirect:/login";  
 //	        }
-	        // È¡µÃSESSIONÖÐµÄloginUser  
+	        // È¡ï¿½ï¿½SESSIONï¿½Ðµï¿½loginUser  
 		 	List<Bill> billList = new ArrayList<Bill>();
 			String queryProductName = request.getParameter("queryProductName");
 			String queryProviderId = request.getParameter("queryProviderId");
