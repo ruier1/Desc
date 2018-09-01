@@ -1,25 +1,17 @@
 package controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.CellEditor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.sun.org.apache.regexp.internal.recompile;
 
 import entity.Bill;
-import entity.LimitPageList;
 import entity.Page;
 import entity.Provider;
 import util.*;
@@ -27,7 +19,6 @@ import entity.User;
 import service.BiliService;
 
 @Controller
-@RequestMapping("/Bill")
 public class BillController2 {
 	/**
 	 * ����service��s
@@ -53,7 +44,7 @@ public class BillController2 {
 //	}
 	 
 	 @RequestMapping(value="/qulists",produces="text/html;charset=utf-8")
-	  public String showMyProduct(HttpServletRequest request) throws UnsupportedEncodingException{
+	  public String showMyProduct(HttpServletRequest request) {
 		 	User loginUser = (User) request.getSession().getAttribute("userSession");
 //		 // �ж�SESSION�Ƿ�ʧЧ  
 //	        if (loginUser == null || "".equals(loginUser)) {  
